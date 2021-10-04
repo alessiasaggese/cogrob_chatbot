@@ -3,31 +3,71 @@ version: "2.0"
 intents:
   - greet
   - goodbye
-  - affirm
+  - thankyou
   - deny
-  - mood_great
-  - mood_unhappy
-  - bot_challenge
+  - affirm
+  - search_provider
+  - inform
+
+entities:
+  - facility_type
+  - location
+
+actions:
+  - action_submit
+  - utter_greet
+  - utter_goodbye
+  - utter_noworries
+  - utter_ask_facility_type
+  - utter_ask_location
+  - utter_thanks
+
+slots:
+  facility_type:
+    type: text
+    influence_conversation: false
+  location:
+    type: text
+    influence_conversation: false
+  facility_address:
+    type: text
+    influence_conversation: false
+
+forms:
+  facility_form:
+    required_slots:
+      facility_type:
+        - type: from_entity
+          entity: facility_type
+      location:
+        - type: from_entity
+          entity: location
 
 responses:
   utter_greet:
-  - text: "Hey! How are you?"
-
-  utter_cheer_up:
-  - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
-
-  utter_did_that_help:
-  - text: "Did that help you?"
-
-  utter_happy:
-  - text: "Great, carry on!"
+  - text: "Hi. What are you looking for?"
+  - text: "Hello! What can I help you find today?"
 
   utter_goodbye:
-  - text: "Bye"
+  - text: "Talk to you later!"
+  - text: "Have a good day."
+  - text: "Until next time!"
 
-  utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
+  utter_noworries:
+  - text: "My pleasure."
+  - text: "You are welcome!"
+
+  utter_ask_facility_type:
+  - text: "Choose one of the following to search for: hospital, nursing home, or home health agency."
+
+  utter_ask_location:
+  - text: "Please provide your city name."
+  - text: "What is your current city?"
+  - text: "Please provide your city name or zip code."
+  - text: "Please enter your zip code or city name to find local providers."
+
+  utter_thanks:
+  - text: "Ok. Thank you!"
 
 session_config:
   session_expiration_time: 60
